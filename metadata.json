@@ -1,0 +1,8 @@
+{
+  "name": "NeuroMarket",
+  "description": "Desarrollamos software, infraestructura cloud e inteligencia artificial en un solo lugar. Soluciones escalables para empresas en México y USA.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

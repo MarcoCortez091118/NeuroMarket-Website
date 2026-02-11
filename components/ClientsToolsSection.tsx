@@ -1,0 +1,98 @@
+
+import React from 'react';
+
+const ClientsToolsSection: React.FC = () => {
+  const clients = [
+    "https://firebasestorage.googleapis.com/v0/b/laz1310.firebasestorage.app/o/web-images%2F2%20(1).png?alt=media",
+    "https://zamoralive.com/wp-content/uploads/2025/05/zamoralogo-300x130-1.png",
+    "https://hkhall.com/wp-content/uploads/2024/05/HK-Hall-white-logo.webp",
+    "https://cantinarooftop.com/wp-content/uploads/2025/08/Cantina-Rooftop-White-2048x787.png",
+    "https://greengoldfinancial.com/wp-content/uploads/2025/06/GREEN-GOLD-FINANCIAL-LOGO-PACKAGE_Mesa-de-trabajo-1-copia-2048x775.png",
+    "https://mecenasusa.org/wp-content/uploads/2024/11/Diseno-sin-titulo-5.png",
+    "https://tacoslabroadway.com/wp-content/uploads/2025/04/Tacos-La-Broadway-White-2048x1152.png",
+    "http://seagreen-gnat-364518.hostingersite.com/wp-content/uploads/2025/07/LOGO-VOZUL.png",
+    "https://vidasincruda.com/cdn/shop/files/LOGO.png?v=1746597319&width=240"
+  ];
+
+  const tools = [
+    { name: "N8N", logo: "https://green-dragonfly-496875.hostingersite.com/wp-content/uploads/2026/02/N8n-logo-new.svg_.png" },
+    { name: "Azure", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" },
+    { name: "Google Cloud", logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" },
+    { name: "AWS", logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" },
+    { name: "GitHub", logo: "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" },
+    { name: "OPEN AI", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" },
+    { name: "Bolt.new", logo: "https://green-dragonfly-496875.hostingersite.com/wp-content/uploads/2026/02/pfe4e39n.png" }
+  ];
+
+  return (
+    <section className="bg-black py-20 border-t border-white/5 overflow-hidden">
+      <div className="mx-auto w-full px-4 lg:px-6 xl:max-w-7xl">
+        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="space-y-2">
+            <div className="mono-tag text-[10px] text-secondary">[ Strategic Partners ]</div>
+            <h3 className="text-xl font-light text-primary tracking-tight">Trusted by Industry Leaders</h3>
+          </div>
+          <p className="text-xs font-mono text-secondary max-w-xs md:text-right">
+            Engineering solutions for global operations and high-growth startups.
+          </p>
+        </div>
+      </div>
+
+      {/* Clients Marquee */}
+      <div className="relative flex overflow-x-hidden group py-4">
+        <div className="animate-marquee flex whitespace-nowrap gap-16 md:gap-32 items-center">
+          {[...clients, ...clients].map((logo, idx) => (
+            <img 
+              key={idx} 
+              src={logo} 
+              alt="Client Logo" 
+              className="h-10 md:h-14 w-auto object-contain opacity-40 hover:opacity-100 transition-opacity grayscale brightness-150"
+            />
+          ))}
+        </div>
+        
+        {/* Fades for smooth edges */}
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10"></div>
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10"></div>
+      </div>
+
+      {/* Tools Section */}
+      <div className="mx-auto w-full px-4 lg:px-6 xl:max-w-7xl mt-24">
+        <div className="mono-tag text-[10px] text-secondary mb-8">[ Tech Stack ]</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-px bg-white/5 border border-white/5">
+          {tools.map((tool, idx) => (
+            <div 
+              key={idx} 
+              className="bg-black py-10 px-6 flex flex-col items-center justify-center group hover:bg-white/[0.02] transition-all"
+            >
+              <img 
+                src={tool.logo} 
+                alt={tool.name}
+                className="h-8 md:h-10 w-auto object-contain mb-4 opacity-40 group-hover:opacity-100 transition-all grayscale brightness-200"
+                style={{ filter: 'brightness(0) invert(1) contrast(1)' }}
+              />
+              <span className="text-[9px] font-mono text-secondary/40 group-hover:text-primary tracking-[0.2em] transition-colors uppercase">
+                {tool.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 40s linear infinite;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default ClientsToolsSection;
