@@ -1,54 +1,29 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-const MOCK_BLOGS = [
-  {
-    id: "1",
-    title: "The Architecture of Scalability: Beyond Microservices",
-    summary: "How to design systems that handle massive growth without technical debt.",
-    category: "Architecture",
-    createdAt: new Date(),
-    slug: "architecture-scalability"
-  },
-  {
-    id: "2",
-    title: "AI Integration in 2025: From Hype to ROI",
-    summary: "Practical strategies for businesses to implement LLMs that actually drive revenue.",
-    category: "AI",
-    createdAt: new Date(),
-    slug: "ai-integration-2025"
-  }
-];
-
-const BlogItem: React.FC<any> = ({ title, summary, category, createdAt, slug }) => {
-  const dateStr = createdAt.toLocaleDateString('en-US', {
-    month: 'long', day: '2-digit', year: 'numeric'
-  });
-
-  return (
-    <div className="group border-b border-border py-12 lg:py-16 first:border-t">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-        <div className="lg:w-1/4">
-          <p className="mono-tag text-[10px] text-secondary">{dateStr}</p>
+const BlogItem: React.FC<{ date: string; title: string; description: string; category: string }> = ({ date, title, description, category }) => (
+  <div className="group border-b border-border py-12 lg:py-16 first:border-t">
+    <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+      <div className="lg:w-1/4">
+        <p className="mono-tag text-[10px] text-secondary">{date}</p>
+      </div>
+      <div className="flex-grow space-y-4">
+        <h3 className="text-2xl font-light group-hover:text-primary transition-colors">{title}</h3>
+        <p className="text-secondary group-hover:text-primary transition-colors text-balance">{description}</p>
+        <div className="flex items-center justify-between pt-4">
+           <span className="mono-tag text-[10px] text-secondary border border-border px-2 py-0.5 rounded">{category}</span>
+           <button className="mono-tag text-[10px] opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-[0.2em] border border-white/20 px-4 py-1.5 rounded-full">Read</button>
         </div>
-        <div className="flex-grow space-y-4">
-          <Link to={`/news/${slug}`}>
-            <h3 className="text-2xl font-light group-hover:text-primary transition-colors cursor-pointer">{title}</h3>
-          </Link>
-          <p className="text-secondary group-hover:text-primary transition-colors text-balance">{summary}</p>
-          <div className="flex items-center justify-between pt-4">
-             <span className="mono-tag text-[10px] text-secondary border border-border px-2 py-0.5 rounded">{category}</span>
-             <Link to={`/news/${slug}`} className="mono-tag text-[10px] uppercase tracking-[0.2em] border border-white/20 px-4 py-1.5 rounded-full">Read</Link>
-          </div>
-        </div>
-        <div className="lg:w-1/3 aspect-[16/10] bg-white/5 rounded overflow-hidden relative">
-          <img src={`https://picsum.photos/seed/${slug}/600/400`} alt={title} className="w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:opacity-60 transition-opacity" />
+      </div>
+      <div className="lg:w-1/3 aspect-[16/10] bg-white/5 rounded overflow-hidden">
+        {/* Mock image placeholder with noise */}
+        <div className="w-full h-full bg-gradient-to-br from-white/10 to-transparent opacity-50 relative">
+          <div className="absolute inset-0 bg-[url('https://picsum.photos/400/250')] bg-cover bg-center mix-blend-overlay opacity-20"></div>
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 const BlogSection: React.FC = () => {
   return (
@@ -59,12 +34,30 @@ const BlogSection: React.FC = () => {
             <div className="mono-tag text-xs text-secondary">[ Blog ]</div>
             <h2 className="text-4xl lg:text-6xl font-light tracking-tight">Latest news</h2>
           </div>
-          <Link to="/news" className="mono-tag text-xs border border-white/20 px-8 py-3 rounded-full hover:bg-white/10 transition-colors">
+          <button className="mono-tag text-xs border border-white/20 px-8 py-3 rounded-full hover:bg-white/10 transition-colors">
             Explore more
-          </Link>
+          </button>
         </div>
+
         <div>
-          {MOCK_BLOGS.map((blog) => <BlogItem key={blog.id} {...blog} />)}
+          <BlogItem 
+            date="February 02, 2026" 
+            title="xAI joins SpaceX" 
+            description="SpaceX announced today that it has acquired xAI." 
+            category="company" 
+          />
+          <BlogItem 
+            date="January 28, 2026" 
+            title="Grok Imagine API" 
+            description="State-of-the-art video generation across quality, cost, and latency." 
+            category="grok" 
+          />
+          <BlogItem 
+            date="January 06, 2026" 
+            title="xAI Raises $20B Series E" 
+            description="xAI is rapidly accelerating its progress in building advanced AI." 
+            category="company" 
+          />
         </div>
       </div>
     </section>

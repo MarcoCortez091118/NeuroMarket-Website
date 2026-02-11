@@ -15,13 +15,7 @@ const ClientsToolsSection: React.FC = () => {
   ];
 
   const tools = [
-    { name: "N8N", logo: "https://green-dragonfly-496875.hostingersite.com/wp-content/uploads/2026/02/N8n-logo-new.svg_.png" },
-    { name: "Azure", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" },
-    { name: "Google Cloud", logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg" },
-    { name: "AWS", logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" },
-    { name: "GitHub", logo: "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" },
-    { name: "OPEN AI", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" },
-    { name: "Bolt.new", logo: "https://green-dragonfly-496875.hostingersite.com/wp-content/uploads/2026/02/pfe4e39n.png" }
+    "N8N", "Azure", "Google Cloud", "AWS", "GitHub", "OPEN AI", "Bolt.new"
   ];
 
   return (
@@ -63,16 +57,10 @@ const ClientsToolsSection: React.FC = () => {
           {tools.map((tool, idx) => (
             <div 
               key={idx} 
-              className="bg-black py-10 px-6 flex flex-col items-center justify-center group hover:bg-white/[0.02] transition-all"
+              className="bg-black py-8 px-4 flex items-center justify-center group hover:bg-white/[0.02] transition-colors"
             >
-              <img 
-                src={tool.logo} 
-                alt={tool.name}
-                className="h-8 md:h-10 w-auto object-contain mb-4 opacity-40 group-hover:opacity-100 transition-all grayscale brightness-200"
-                style={{ filter: 'brightness(0) invert(1) contrast(1)' }}
-              />
-              <span className="text-[9px] font-mono text-secondary/40 group-hover:text-primary tracking-[0.2em] transition-colors uppercase">
-                {tool.name}
+              <span className="text-xs font-mono text-secondary group-hover:text-primary tracking-widest transition-colors uppercase">
+                {tool}
               </span>
             </div>
           ))}
