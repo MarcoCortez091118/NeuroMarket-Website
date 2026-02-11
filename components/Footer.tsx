@@ -1,7 +1,11 @@
 
 import React, { useEffect, useRef } from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  setView?: (view: 'home' | 'about' | 'services') => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ setView }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -53,8 +57,10 @@ const Footer: React.FC = () => {
     }
 
     const resize = () => {
-      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
-      canvas.height = canvas.parentElement?.clientHeight || 600;
+      if (canvas.parentElement) {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+      }
     };
 
     const animate = () => {
@@ -83,100 +89,45 @@ const Footer: React.FC = () => {
     };
   }, []);
 
-  const footerLinks = [
-    {
-      title: "Try NeuroMarket On",
-      links: ["Web", "iOS App", "Android App", "LinkedIn"]
-    },
-    {
-      title: "Solutions",
-      links: ["Enterprise Software", "Cloud Infrastructure", "AI Integration", "Mobile Apps", "Custom APIs"]
-    },
-    {
-      title: "Company",
-      links: ["About Us", "Tech Stack", "Contact", "News", "Careers"]
-    },
-    {
-      title: "Legal",
-      links: ["Privacy Policy", "Security", "Terms of Service", "Safety", "Status"]
-    }
-  ];
-
   return (
-    <footer className="relative bg-black pt-32 pb-24 overflow-hidden">
+    <footer className="relative bg-black pt-20 pb-12 overflow-hidden border-t border-white/5">
       {/* Dynamic Ambient Glow */}
       <canvas 
         ref={canvasRef} 
         className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen"
       />
 
-      <div className="relative z-10 mx-auto w-full px-4 lg:px-6 xl:max-max-w-7xl">
-        {/* Navigation Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-24 mb-32">
-          {footerLinks.map((column) => (
-            <div key={column.title} className="space-y-6">
-              <h4 className="mono-tag text-[10px] text-secondary/60 font-mono tracking-[0.2em]">
-                {column.title}
-              </h4>
-              <ul className="space-y-4">
-                {column.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm font-light text-secondary hover:text-primary transition-colors">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* SEO Info & Branding */}
-        <div className="border-t border-white/5 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 opacity-40 hover:opacity-100 transition-opacity duration-700">
-            <div className="space-y-1">
-              <p className="mono-tag text-[9px] text-secondary">Expertise</p>
-              <p className="text-[11px] font-mono text-primary/80 uppercase tracking-wider">Software Development Company</p>
-            </div>
-            <div className="space-y-1">
-              <p className="mono-tag text-[9px] text-secondary">Focus</p>
-              <p className="text-[11px] font-mono text-primary/80 uppercase tracking-wider">AI Solutions for Business</p>
-            </div>
-            <div className="space-y-1">
-              <p className="mono-tag text-[9px] text-secondary">Service</p>
-              <p className="text-[11px] font-mono text-primary/80 uppercase tracking-wider">Cloud Infrastructure Services</p>
-            </div>
-            <div className="space-y-1">
-              <p className="mono-tag text-[9px] text-secondary">Region</p>
-              <p className="text-[11px] font-mono text-primary/80 uppercase tracking-wider">México & United States</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Branding & Copyright */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-white/5">
-          <div className="flex items-center gap-6">
-            <img 
-              src="https://green-dragonfly-496875.hostingersite.com/wp-content/uploads/2026/02/cropped-Diseno-sin-titulo-2.png" 
-              alt="NeuroMarket" 
-              className="h-6 w-auto object-contain brightness-110"
-            />
-            <span className="text-[10px] text-secondary font-mono tracking-wider">
-              NEUROMARKET 2026 © ALL RIGHT RESERVED
+      <div className="relative z-10 mx-auto w-full px-4 lg:px-6 xl:max-w-7xl">
+        {/* Simplified Bottom Branding & Copyright */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <button onClick={() => setView?.('home')} className="flex items-center">
+              <img 
+                src="https://green-dragonfly-496875.hostingersite.com/wp-content/uploads/2026/02/cropped-Diseno-sin-titulo-2.png" 
+                alt="NeuroMarket" 
+                className="h-5 w-auto object-contain brightness-125"
+              />
+            </button>
+            <span className="text-[10px] text-secondary/50 font-mono tracking-widest uppercase">
+              © 2026 NEUROMARKET
             </span>
           </div>
-          <div className="flex gap-8">
-            <a href="#" className="text-[10px] mono-tag text-secondary hover:text-primary">X</a>
-            <a href="#" className="text-[10px] mono-tag text-secondary hover:text-primary">LinkedIn</a>
+
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+            <button className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary/60 hover:text-primary transition-colors">Privacy</button>
+            <button className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary/60 hover:text-primary transition-colors">Terms</button>
+            <button onClick={() => setView?.('about')} className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary/60 hover:text-primary transition-colors">About</button>
+            <button onClick={() => setView?.('services')} className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary/60 hover:text-primary transition-colors">Services</button>
+            <a href="#" className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary/60 hover:text-primary transition-colors">X</a>
+            <a href="#" className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary/60 hover:text-primary transition-colors">LinkedIn</a>
           </div>
         </div>
       </div>
 
-      {/* HORIZON GLOW EFFECT - The requested visual */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-gradient-to-t from-amber-600/20 via-amber-900/5 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent blur-[2px]"></div>
-        <div className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 w-full max-w-7xl h-64 bg-amber-600/10 rounded-[100%] blur-[120px]"></div>
+      {/* HORIZON GLOW EFFECT */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-0">
+        <div className="absolute inset-0 bg-gradient-to-t from-amber-600/10 via-transparent to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent"></div>
       </div>
     </footer>
   );

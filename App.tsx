@@ -7,11 +7,20 @@ import ProductSection from './components/ProductSection';
 import UniverseSection from './components/UniverseSection';
 import SuperGrokSection from './components/SuperGrokSection';
 import HowWeWorkSection from './components/HowWeWorkSection';
-import BlogSection from './components/BlogSection';
+import AboutPage from './components/AboutPage';
+import ServicesPage from './components/ServicesPage';
+import EnterpriseSoftwarePage from './components/EnterpriseSoftwarePage';
+import FullStackWebPage from './components/FullStackWebPage';
+import MobileAppPage from './components/MobileAppPage';
+import APIDevelopmentPage from './components/APIDevelopmentPage';
+import AISolutionsPage from './components/AISolutionsPage';
+import CloudInfrastructurePage from './components/CloudInfrastructurePage';
+import StackPage from './components/StackPage';
 import Footer from './components/Footer';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [view, setView] = useState<'home' | 'about' | 'services' | 'enterprise-software' | 'fullstack-web' | 'mobile-app' | 'api-development' | 'ai-solutions' | 'cloud-infrastructure' | 'stack'>('home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,19 +30,36 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Simple scroll to top on view change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
+
   return (
     <div className="flex flex-col min-h-screen">
-      <Header scrolled={scrolled} />
+      <Header scrolled={scrolled} setView={setView} currentView={view} />
       <main>
-        <Hero />
-        <ClientsToolsSection />
-        <ProductSection />
-        <UniverseSection />
-        <SuperGrokSection />
-        <HowWeWorkSection />
-        <BlogSection />
+        {view === 'home' && (
+          <>
+            <Hero />
+            <ClientsToolsSection />
+            <ProductSection setView={setView} />
+            <UniverseSection />
+            <SuperGrokSection />
+            <HowWeWorkSection />
+          </>
+        )}
+        {view === 'about' && <AboutPage />}
+        {view === 'services' && <ServicesPage setView={setView} />}
+        {view === 'enterprise-software' && <EnterpriseSoftwarePage />}
+        {view === 'fullstack-web' && <FullStackWebPage />}
+        {view === 'mobile-app' && <MobileAppPage />}
+        {view === 'api-development' && <APIDevelopmentPage />}
+        {view === 'ai-solutions' && <AISolutionsPage />}
+        {view === 'cloud-infrastructure' && <CloudInfrastructurePage />}
+        {view === 'stack' && <StackPage />}
       </main>
-      <Footer />
+      <Footer setView={setView} />
     </div>
   );
 };

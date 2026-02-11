@@ -1,8 +1,11 @@
 
 import React from 'react';
 
-const ProductCard: React.FC<{ title: string; description: string; linkText: string; children?: React.ReactNode }> = ({ title, description, linkText, children }) => (
-  <div className="group relative flex h-full flex-col border-t border-border p-8 lg:hover:bg-white/[0.02] transition-colors overflow-hidden border-r last:border-r-0 md:even:border-r-0 lg:even:border-r lg:[&:nth-child(3n)]:border-r-0">
+const ProductCard: React.FC<{ title: string; description: string; linkText: string; onClick?: () => void; children?: React.ReactNode }> = ({ title, description, linkText, onClick, children }) => (
+  <div 
+    onClick={onClick}
+    className="group relative flex h-full flex-col border-t border-border p-8 lg:hover:bg-white/[0.02] transition-colors overflow-hidden border-r last:border-r-0 md:even:border-r-0 lg:even:border-r lg:[&:nth-child(3n)]:border-r-0 cursor-pointer"
+  >
     <div className="mb-12">
       <h3 className="text-2xl font-light mb-4 group-hover:text-primary transition-colors">{title}</h3>
       <p className="text-secondary group-hover:text-primary transition-colors text-balance leading-relaxed">{description}</p>
@@ -25,10 +28,15 @@ const ProductCard: React.FC<{ title: string; description: string; linkText: stri
   </div>
 );
 
-const ProductSection: React.FC = () => {
+interface ProductSectionProps {
+  setView: (view: any) => void;
+}
+
+const ProductSection: React.FC<ProductSectionProps> = ({ setView }) => {
   const services = [
     {
       title: "Enterprise Software Development",
+      view: "enterprise-software",
       description: "Custom systems designed to scale with your business, built using modern architectures and best practices.",
       icon: (
         <svg className="w-1/2 opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,6 +47,7 @@ const ProductSection: React.FC = () => {
     },
     {
       title: "Full-Stack Web Development",
+      view: "fullstack-web",
       description: "High-performance web platforms using modern frameworks, clean architecture and senior engineering standards.",
       icon: (
         <svg className="w-1/2 opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,6 +61,7 @@ const ProductSection: React.FC = () => {
     },
     {
       title: "Mobile App Development",
+      view: "mobile-app",
       description: "iOS and Android applications focused on performance, security and long-term scalability.",
       icon: (
         <svg className="w-1/3 opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,6 +73,7 @@ const ProductSection: React.FC = () => {
     },
     {
       title: "API Development & Integrations",
+      view: "api-development",
       description: "Secure, well-documented APIs and integrations that connect systems, platforms and services seamlessly.",
       icon: (
         <svg className="w-1/2 opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -73,6 +84,7 @@ const ProductSection: React.FC = () => {
     },
     {
       title: "AI Solutions for Business",
+      view: "ai-solutions",
       description: "Custom artificial intelligence systems designed to automate processes, analyze data and enhance decision-making.",
       icon: (
         <svg className="w-1/2 opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,6 +95,7 @@ const ProductSection: React.FC = () => {
     },
     {
       title: "Cloud Infrastructure & DevOps",
+      view: "cloud-infrastructure",
       description: "We design, deploy and operate cloud infrastructure so your software runs fast, secure and reliable.",
       icon: (
         <svg className="w-1/2 opacity-20 group-hover:opacity-40 transition-all group-hover:scale-110" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,6 +124,7 @@ const ProductSection: React.FC = () => {
               title={service.title} 
               description={service.description}
               linkText="View Solutions"
+              onClick={() => setView(service.view)}
             >
               {service.icon}
             </ProductCard>

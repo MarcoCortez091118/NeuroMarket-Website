@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const ClientsToolsSection: React.FC = () => {
@@ -15,70 +14,89 @@ const ClientsToolsSection: React.FC = () => {
   ];
 
   const tools = [
-    "N8N", "Azure", "Google Cloud", "AWS", "GitHub", "OPEN AI", "Bolt.new"
+    { 
+      name: "N8N", 
+      logo: "https://green-dragonfly-496875.hostingersite.com/wp-content/uploads/2026/02/N8n-logo-new.svg_-1.png" 
+    },
+    { 
+      name: "Azure", 
+      logo: "https://www.vectorlogo.zone/logos/microsoft_azure/microsoft_azure-icon.svg" 
+    },
+    { 
+      name: "Google Cloud", 
+      logo: "https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" 
+    },
+    { 
+      name: "AWS", 
+      logo: "https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" 
+    },
+    { 
+      name: "GitHub", 
+      logo: "https://www.vectorlogo.zone/logos/github/github-icon.svg" 
+    },
+    { 
+      name: "OPEN AI", 
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/1280px-OpenAI_Logo.svg.png?20230731013808" 
+    },
+    { 
+      name: "Bolt.new", 
+      logo: "https://green-dragonfly-496875.hostingersite.com/wp-content/uploads/2026/02/pfe4e39n.png" 
+    }
   ];
 
   return (
-    <section className="bg-black py-20 border-t border-white/5 overflow-hidden">
+    <section className="bg-black py-24 border-t border-white/5 overflow-hidden">
       <div className="mx-auto w-full px-4 lg:px-6 xl:max-w-7xl">
-        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div className="space-y-2">
-            <div className="mono-tag text-[10px] text-secondary">[ Strategic Partners ]</div>
-            <h3 className="text-xl font-light text-primary tracking-tight">Trusted by Industry Leaders</h3>
+        <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-4">
+            <div className="mono-tag text-[10px] text-secondary/60 font-mono tracking-[0.3em] uppercase">[ Strategic Partners ]</div>
+            <h3 className="text-3xl md:text-4xl font-light text-primary tracking-tight">Trusted by Industry Leaders</h3>
           </div>
-          <p className="text-xs font-mono text-secondary max-w-xs md:text-right">
+          <p className="text-xs font-mono text-secondary max-w-xs md:text-right leading-relaxed">
             Engineering solutions for global operations and high-growth startups.
           </p>
         </div>
       </div>
 
-      {/* Clients Marquee */}
-      <div className="relative flex overflow-x-hidden group py-4">
-        <div className="animate-marquee flex whitespace-nowrap gap-16 md:gap-32 items-center">
-          {[...clients, ...clients].map((logo, idx) => (
-            <img 
-              key={idx} 
-              src={logo} 
-              alt="Client Logo" 
-              className="h-10 md:h-14 w-auto object-contain opacity-40 hover:opacity-100 transition-opacity grayscale brightness-150"
-            />
-          ))}
+      <div className="flex flex-col gap-8 md:gap-16">
+        {/* Clients Marquee (Left to Right) */}
+        <div className="relative flex overflow-x-hidden group py-4 border-y border-white/[0.03]">
+          <div className="animate-marquee flex whitespace-nowrap gap-12 md:gap-32 items-center">
+            {[...clients, ...clients].map((logo, idx) => (
+              <img 
+                key={idx} 
+                src={logo} 
+                alt="Client Logo" 
+                className="h-8 md:h-16 w-auto object-contain opacity-30 hover:opacity-100 transition-all duration-500 grayscale brightness-150"
+              />
+            ))}
+          </div>
+          
+          {/* Fades for smooth edges */}
+          <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
+          <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-black via-black/80 to-transparent z-10"></div>
         </div>
-        
-        {/* Fades for smooth edges */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent z-10"></div>
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-10"></div>
-      </div>
 
-      {/* Tools Section */}
-      <div className="mx-auto w-full px-4 lg:px-6 xl:max-w-7xl mt-24">
-        <div className="mono-tag text-[10px] text-secondary mb-8">[ Tech Stack ]</div>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-px bg-white/5 border border-white/5">
-          {tools.map((tool, idx) => (
-            <div 
-              key={idx} 
-              className="bg-black py-8 px-4 flex items-center justify-center group hover:bg-white/[0.02] transition-colors"
-            >
-              <span className="text-xs font-mono text-secondary group-hover:text-primary tracking-widest transition-colors uppercase">
-                {tool}
-              </span>
-            </div>
-          ))}
+        {/* Tools Marquee (Right to Left / Reverse) */}
+        <div className="relative flex overflow-x-hidden group py-4 border-b border-white/[0.03]">
+          <div className="animate-marquee-reverse flex whitespace-nowrap gap-12 md:gap-32 items-center">
+            {[...tools, ...tools, ...tools].map((tool, idx) => (
+              <div key={idx} className="flex flex-col items-center justify-center min-w-[120px] md:min-w-[180px] gap-2">
+                <img 
+                  src={tool.logo} 
+                  alt={tool.name}
+                  className={`h-6 md:h-10 w-auto object-contain ${tool.name === 'Bolt.new' ? 'brightness-200' : 'grayscale invert'} opacity-20 hover:opacity-100 transition-all duration-500`}
+                />
+                <span className="text-[8px] md:text-[10px] font-mono text-secondary/40 tracking-widest uppercase">{tool.name}</span>
+              </div>
+            ))}
+          </div>
+          
+          {/* Fades for smooth edges */}
+          <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
+          <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-black via-black/80 to-transparent z-10"></div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 40s linear infinite;
-        }
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 };
